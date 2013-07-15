@@ -1,0 +1,49 @@
+<script type="text/javascript" src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js"></script>
+<div id="myPublisherDiv"></div>
+
+<script type="text/javascript">
+// Initialize API key, session, and token...
+// Think of a session as a room, and a token as the key to get in to the room
+// Sessions and tokens are generated on your server and passed down to the client
+var apiKey = "25925352";
+var sessionId = "2_MX4yNTkyNTM1Mn5-V2VkIE1heSAyOSAxNjowMTowNSBQRFQgMjAxM34wLjg0MDQ5NzZ-";
+var token = "T1==cGFydG5lcl9pZD0yNTkyNTM1MiZzaWc9ZDkwMTAwOTZlZjYxNGU1MjljOGJlNTQwNTYwNTZhN2ZjYzZmNjkwMDpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0eU5Ua3lOVE0xTW41LVYyVmtJRTFoZVNBeU9TQXhOam93TVRvd05TQlFSRlFnTWpBeE0zNHdMamcwTURRNU56Wi0mY3JlYXRlX3RpbWU9MTM3MzgzNzk5MiZub25jZT0wLjkxMTk4MTkyMDI3MzE5OCZjb25uZWN0aW9uX2RhdGE9Q2hyb21l";
+
+// Enable console logs for debugging
+TB.setLogLevel(TB.DEBUG);
+
+// Initialize session, set up event listeners, and connect
+var session = TB.initSession(sessionId);
+session.addEventListener('sessionConnected', sessionConnectedHandler);
+session.addEventListener('streamCreated', streamCreatedHandler);
+session.connect(apiKey, token);
+function sessionConnectedHandler(event) {
+  var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
+  session.publish(publisher);
+
+  // Subscribe to streams that were in the session when we connected
+  subscribeToStreams(event.streams);
+}
+
+function streamCreatedHandler(event) {
+  // Subscribe to any new streams that are created
+  subscribeToStreams(event.streams);
+}
+
+function subscribeToStreams(streams) {
+  for (var i = 0; i < streams.length; i++) {
+    // Make sure we don't subscribe to ourself
+    if (streams[i].connection.connectionId == session.connection.connectionId) {
+      return;
+    }
+
+    // Create the div to put the subscriber element in to
+    var div = document.createElement('div');
+    div.setAttribute('id', 'stream' + streams[i].streamId);
+    document.body.appendChild(div);
+
+    // Subscribe to the stream
+    session.subscribe(streams[i], div.id);
+  }
+}
+</script>

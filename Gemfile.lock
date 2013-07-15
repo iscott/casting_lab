@@ -56,6 +56,7 @@ GEM
       netrc (~> 0.7.1)
       rest-client (~> 1.6.1)
       rubyzip
+    high_voltage (1.2.3)
     hike (1.2.3)
     i18n (0.6.1)
     journey (1.0.4)
@@ -77,6 +78,7 @@ GEM
     mime-types (1.23)
     multi_json (1.7.7)
     netrc (0.7.1)
+    opentok (0.0.92)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -145,9 +147,11 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 3.2.1)
   heroku
+  high_voltage
   jquery-rails
   letter_opener
   meta_request
+  opentok
   pg
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)

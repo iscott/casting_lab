@@ -1,0 +1,17 @@
+<%= form_for(@audition) do |f| %>
+  <% if @audition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@audition.errors.count, "error") %> prohibited this audition from being saved:</h2>
+
+      <ul>
+      <% @audition.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

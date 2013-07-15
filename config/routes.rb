@@ -1,4 +1,14 @@
 Hhd::Application.routes.draw do
+
+  match '/auditions/room', :controller => 'auditions',
+                                  :action => 'room'
+
+  resources :auditions
+
+
+  resources :settings
+
+
   resources :projects
 
 
