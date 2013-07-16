@@ -7,6 +7,7 @@ class AuditionsController < ApplicationController
   # GET /auditions.json
   def index
     @auditions = Audition.all
+    render :room, layout: false
 
     respond_to do |format|
       format.html # index.html.erb
